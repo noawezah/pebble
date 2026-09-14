@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PEBBLE
 
-## Getting Started
+An English-first, Romanian-second specialty café site for PEBBLE, Bucharest. Next.js App Router, React, TypeScript, Tailwind CSS, self-hosted Fraunces and DM Sans, Remix Icon, GSAP, and Sanity.
 
-First, run the development server:
+## Preview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `/` — English café page
+- `/ro` — Romanian café page
+- `/design-system` — interactive visual system, in both languages
+- `/studio` — Sanity Studio (requires a project)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run `npm install`, then `npm run dev`. Use the exact URL printed by Next.js; port 3000 may be occupied. `npm run build` creates the Vercel-compatible production build. `npm run typecheck` checks TypeScript.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Brand and content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Interface: off-white, charcoal and neutral greys only. Green is restricted to photographs. PEBBLE is always uppercase. The snail SVG is traced from the supplied original logo, not a newly invented symbol. Fraunces Black with SOFT 100 is the web-font alternative to Cooper Black; no commercial Cooper font is redistributed.
 
-## Learn More
+The reusable CSS tokens are in `app/globals.css`; the café composition is in `app/cafe.css`. Details and usage rules are in `DESIGN_SYSTEM.md`.
 
-To learn more about Next.js, take a look at the following resources:
+Confirmed local content is in `lib/content.ts`: Str. D. I. Mendeleev 10, 030167 București; weekdays 08:00–17:00; weekends 10:00–19:00. Menu/prices are intentionally absent until supplied. There are no fabricated reviews, ratings, awards, phone numbers or product prices.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Sanity connection
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The website works immediately using the confirmed local content. To activate CMS editing:
 
-## Deploy on Vercel
+1. Create a Sanity project and a public `production` dataset in the owner's account.
+2. Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET`. These are project identifiers, not secret tokens.
+3. Add the local and production Studio origins to Sanity's CORS settings with authenticated requests enabled.
+4. Restart the dev server, visit `/studio`, and sign in with the project owner's Sanity account.
+5. Open **Café content**. Fill both language fields and publish. The site reads published content and revalidates every 60 seconds. An empty menu is hidden. Invalid or missing fields use the local fallback.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The schema is in `sanity/schema.ts`. Studio authenticates through Sanity; no write token is embedded in the site. Sanity service connection cannot be verified until a real project is supplied. Initial copy remains local until entered and published in Studio.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Vercel
+
+This is a native Next.js app; `vercel.json` selects the Next.js framework. Import the repository into the owner's Vercel account, or run the Vercel CLI after signing in. Use `npm run build`, default Next.js output settings, and the same public Sanity settings. Add `NEXT_PUBLIC_SITE_URL` with the final HTTPS origin. No deployment account or remote project was supplied in this session, so no live deployment is claimed.
+
+## Images
+
+`public/images/` contains the supplied references, preserved generated PNG masters, and optimized WebP assets used by the site. AI-created or enhanced imagery is art direction based on the actual café references; small equipment and decorative details can differ. Original photographs and logos remain available. Generation provenance is recorded in `ASSETS.md`.
+
+## Accessibility and motion
+
+Real anchor navigation, Next.js language links, visible keyboard focus, descriptive image alternatives, semantic sections and hours, responsive 7-column desktop / 4-column mobile layouts. GSAP diagonal reveals run once; parallax does not hijack scrolling. `prefers-reduced-motion` disables scroll effects. Body text is at least 16px. No autoplay video or infinite animation.
