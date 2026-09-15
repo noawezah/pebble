@@ -14,6 +14,7 @@ export type CafeContent = {
   storyTitle: Localized;
   storyText: Localized;
   coffeeText: Localized;
+  retailText: Localized;
   address: string;
   postalCode: string;
   weekdayHours: string;
@@ -29,20 +30,24 @@ export const defaultContent: CafeContent = {
     ro: "Puțin ascuns.\nUșor de iubit.",
   },
   heroText: {
-    en: "Specialty coffee. A slower pace. Your little place in the heart of Bucharest.",
-    ro: "Cafea de specialitate. Un ritm mai lent. Micul tău loc din inima Bucureștiului.",
+    en: "Specialty coffee. A brighter moment. Your little place in the heart of Bucharest.",
+    ro: "Cafea de specialitate. Un moment frumos. Micul tău loc din inima Bucureștiului.",
   },
   storyTitle: {
-    en: "Small space.\nRoom for you.",
-    ro: "Un loc mic.\nLoc pentru tine.",
+    en: "Your cosy\ncity hideaway.",
+    ro: "Colțul tău\nde liniște.",
   },
   storyText: {
-    en: "Between the familiar cafés of central Bucharest, there’s a little place worth finding. Dark brick, green leaves, a little morning light. And coffee that gives you a reason to stay.",
-    ro: "Printre cafenelele cunoscute din centrul Bucureștiului, există un mic loc care merită descoperit. Cărămidă închisă, frunze verzi, puțină lumină de dimineață. Și cafea care îți dă un motiv să mai stai.",
+    en: "Step inside from Mendeleev 10 and feel the city soften. Sunlight through tall windows, leafy plants, textured brick and the warmth of a small, personal café. A cosy, calming corner for good conversations, a quiet chapter and another beautiful cup.",
+    ro: "Intră de pe Mendeleev 10 și lasă agitația orașului la ușă. Lumină prin ferestre înalte, plante, cărămidă cu textură și căldura unei cafenele mici și personale. Un colț intim și liniștitor pentru conversații, câteva pagini și încă o cafea bună.",
   },
   coffeeText: {
-    en: "We serve MERON specialty coffee, in a place made for taking your time. Come for your usual. Stay for another moment.",
-    ro: "Servim cafea de specialitate MERON, într-un loc în care poți să încetinești. Vino pentru cafeaua ta preferată. Mai rămâi o clipă.",
+    en: "From Cluj-Napoca to your favourite corner of Bucharest. We serve specialty coffee from MERON, roasted in Transylvania to bring out the character of each origin. Carefully made at our bar, ready to make your day.",
+    ro: "Din Cluj-Napoca în colțul tău preferat din București. Servim cafea de specialitate MERON, prăjită în Transilvania pentru a pune în valoare caracterul fiecărei origini. Pregătită cu grijă la barul nostru, pentru o zi mai frumoasă.",
+  },
+  retailText: {
+    en: "Local beers from Zăganu and Grivița. PEBBLE mugs for your morning ritual. A few snacks for the way home. There’s a little more to discover at the counter.",
+    ro: "Bere locală de la Zăganu și Grivița. Căni PEBBLE pentru ritualul de dimineață. Câteva gustări pentru drumul spre casă. Mai ai ceva de descoperit la bar.",
   },
   address: "Str. D. I. Mendeleev 10",
   postalCode: "030167",
@@ -59,6 +64,7 @@ const localFields = [
   "storyTitle",
   "storyText",
   "coffeeText",
+  "retailText",
 ] as const;
 const stringFields = [
   "address",
@@ -117,7 +123,7 @@ export async function getCafeContent(): Promise<CafeContent> {
       maxRetries: 1,
     });
     const data = await client.fetch<Partial<CafeContent> | null>(
-      '*[_type == "cafeSettings"] | order(_updatedAt desc)[0]{heroTitle,heroText,storyTitle,storyText,coffeeText,address,postalCode,weekdayHours,weekendHours,instagram,facebook,maps,menu}',
+      '*[_type == "cafeSettings"] | order(_updatedAt desc)[0]{heroTitle,heroText,storyTitle,storyText,coffeeText,retailText,address,postalCode,weekdayHours,weekendHours,instagram,facebook,maps,menu}',
       {},
       { next: { revalidate: 60 } },
     );

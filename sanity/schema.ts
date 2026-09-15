@@ -32,6 +32,7 @@ const cafeSettings = defineType({
       ["storyTitle", "Our place heading"],
       ["storyText", "Our place story"],
       ["coffeeText", "Coffee description"],
+      ["retailText", "At the counter description"],
     ].map(([name, title]) =>
       defineField({ name, title, type: "localizedText" }),
     ),

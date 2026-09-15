@@ -285,7 +285,7 @@ export default function DesignSystem() {
         >
           <div className="hero-picture">
             <Image
-              src="/images/interior-empty.webp"
+              src="/images/interior-empty-editorial.webp"
               alt={
                 lang === "ro"
                   ? "Fotografie a interiorului PEBBLE cu lumină îmbunătățită prin AI: barul în stânga, plante și vitrina înaltă"
@@ -456,7 +456,7 @@ export default function DesignSystem() {
           <div className="reference-images">
             <figure>
               <Image
-                src="/images/front-reference.png"
+                src="/images/front-enhanced-editorial.webp"
                 alt={
                   lang === "ro"
                     ? "Fațada reală PEBBLE, cu vitrina luminată și marca melcului"
@@ -470,7 +470,7 @@ export default function DesignSystem() {
             </figure>
             <figure>
               <Image
-                src="/images/interior-reference.png"
+                src="/images/interior-reference-editorial.webp"
                 alt={
                   lang === "ro"
                     ? "Interiorul real PEBBLE: cărămidă închisă, plante și mese cu clienți"

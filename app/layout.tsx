@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   ...(siteOrigin() ? { metadataBase: new URL(siteOrigin()!) } : {}),
   title: "PEBBLE — Specialty coffee, Bucharest",
   description:
-    "A little hidden. Easy to love. MERON specialty coffee, plants and a slower pace at PEBBLE, Mendeleev 10, Bucharest.",
+    "A little hidden. Easy to love. MERON specialty coffee, plants and a welcoming atmosphere at PEBBLE, Mendeleev 10, Bucharest.",
   icons: { icon: "/images/snail.svg" },
 };
 export default function RootLayout({

@@ -1,0 +1,207 @@
+"use client";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+
+export default function SnailSculpture() {
+  const host = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = host.current;
+    if (!element) return;
+    let disposed = false;
+    let cleanup = () => {};
+    const controller = new AbortController();
+    async function init() {
+      const [THREE, { SVGLoader }, { mergeVertices }, svg] = await Promise.all([
+        import("three"),
+        import("three/addons/loaders/SVGLoader.js"),
+        import("three/addons/utils/BufferGeometryUtils.js"),
+        fetch("/images/snail-sculpture.svg", {
+          signal: controller.signal,
+        }).then((r) => r.text()),
+      ]);
+      if (disposed || !element) return;
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+      renderer.setClearColor(0x000000, 0);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(35, 1, 1, 1600);
+      camera.position.set(0, 0, 690);
+      const sculpture = new THREE.Group();
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x969694,
+        roughness: 0.94,
+        metalness: 0,
+      });
+      const geometries: InstanceType<typeof THREE.BufferGeometry>[] = [];
+      const paths = new SVGLoader().parse(svg).paths;
+      for (const path of paths)
+        for (const shape of SVGLoader.createShapes(path)) {
+          const raw = new THREE.ExtrudeGeometry(shape, {
+            depth: 22,
+            bevelEnabled: true,
+            bevelThickness: 6,
+            bevelSize: 2,
+            bevelSegments: 12,
+            steps: 1,
+            curveSegments: 40,
+          });
+          raw.deleteAttribute("normal");
+          raw.deleteAttribute("uv");
+          const geometry = mergeVertices(raw, 0.0001);
+          geometry.computeVertexNormals();
+          raw.dispose();
+          geometry.translate(-125, -156, -14);
+          geometry.scale(1, -1, 1);
+          geometries.push(geometry);
+          const part = new THREE.Mesh(geometry, material);
+          part.name = (path.userData?.node as Element | undefined)?.id || "part";
+          sculpture.add(part);
+        }
+      scene.add(sculpture);
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x555555, 2.2));
+      const key = new THREE.DirectionalLight(0xffffff, 3.2);
+      key.position.set(-200, 250, 350);
+      scene.add(key);
+      const rim = new THREE.DirectionalLight(0xffffff, 1.1);
+      rim.position.set(220, 0, -100);
+      scene.add(rim);
+      element.appendChild(renderer.domElement);
+      element.dataset.ready = "true";
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let visible = false,
+        frame = 0,
+        pointerX = 0,
+        pointerY = 0;
+      const draw = () => {
+        frame = 0;
+        if (disposed || !visible) return;
+        const bounds = element.getBoundingClientRect();
+        const progress = Math.max(
+          -1,
+          Math.min(
+            1,
+            (window.innerHeight / 2 - bounds.top - bounds.height / 2) /
+              (window.innerHeight * 0.65),
+          ),
+        );
+        const targetY = reduced.matches
+          ? -0.18
+          : progress * 0.5 + pointerX * 0.16;
+        sculpture.rotation.y += (targetY - sculpture.rotation.y) * 0.065;
+        sculpture.rotation.x +=
+          ((reduced.matches ? 0.04 : pointerY * 0.12) - sculpture.rotation.x) *
+          0.065;
+        sculpture.rotation.z = reduced.matches ? -0.035 : progress * 0.09;
+        sculpture.position.y = reduced.matches ? 0 : progress * 30;
+        // Each logo part meets its exact home coordinates at viewport centre.
+        const separation = reduced.matches
+          ? 0
+          : Math.pow(Math.abs(progress), 1.35);
+        const travel = {
+          body: [12, 18, 7],
+          shell: [-20, 5, 12],
+          pebble: [8, -18, -7],
+        };
+        sculpture.children.forEach((part) => {
+          const offset = travel[part.name as keyof typeof travel] || [0, 0, 0];
+          part.position.set(
+            offset[0] * separation,
+            offset[1] * separation,
+            offset[2] * separation,
+          );
+          part.rotation.y = separation * (part.name === "shell" ? -0.08 : 0.05);
+        });
+        element.dataset.assembly = separation < 0.02 ? "joined" : "separated";
+        renderer.render(scene, camera);
+        if (!reduced.matches) frame = requestAnimationFrame(draw);
+      };
+      const requestDraw = () => {
+        if (!frame && visible) frame = requestAnimationFrame(draw);
+      };
+      const resize = new ResizeObserver(() => {
+        const width = element.clientWidth,
+          height = element.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        requestDraw();
+      });
+      resize.observe(element);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          visible = entries[0].isIntersecting;
+          if (visible) requestDraw();
+          else {
+            cancelAnimationFrame(frame);
+            frame = 0;
+          }
+        },
+        { rootMargin: "120px" },
+      );
+      observer.observe(element);
+      const move = (event: PointerEvent) => {
+        if (event.pointerType !== "mouse") return;
+        const b = element.getBoundingClientRect();
+        pointerX = (event.clientX - b.left) / b.width - 0.5;
+        pointerY = (event.clientY - b.top) / b.height - 0.5;
+      };
+      const leave = () => {
+        pointerX = 0;
+        pointerY = 0;
+      };
+      element.addEventListener("pointermove", move);
+      element.addEventListener("pointerleave", leave);
+      reduced.addEventListener("change", requestDraw);
+      cleanup = () => {
+        cancelAnimationFrame(frame);
+        observer.disconnect();
+        resize.disconnect();
+        element.removeEventListener("pointermove", move);
+        element.removeEventListener("pointerleave", leave);
+        reduced.removeEventListener("change", requestDraw);
+        geometries.forEach((g) => g.dispose());
+        material.dispose();
+        renderer.dispose();
+        renderer.domElement.remove();
+        delete element.dataset.ready;
+      };
+    }
+    const lazy = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          lazy.disconnect();
+          init().catch(() => {});
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    lazy.observe(element);
+    return () => {
+      disposed = true;
+      controller.abort();
+      lazy.disconnect();
+      cleanup();
+    };
+  }, []);
+  return (
+    <div
+      id="snail-sculpture"
+      className="snail-sculpture"
+      ref={host}
+      role="img"
+      aria-label="Matte grey three-dimensional PEBBLE snail sculpture"
+    >
+      <Image
+        className="snail-fallback"
+        src="/images/snail.svg"
+        alt=""
+        fill
+        sizes="40vw"
+      />
+    </div>
+  );
+}
+

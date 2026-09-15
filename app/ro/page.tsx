@@ -4,7 +4,7 @@ import { getCafeContent } from "@/lib/content";
 export const metadata: Metadata = {
   title: "PEBBLE — Cafea de specialitate, București",
   description:
-    "Puțin ascuns. Ușor de iubit. Cafea MERON, plante și un ritm mai lent la PEBBLE, Mendeleev 10, București.",
+    "Puțin ascuns. Ușor de iubit. Cafea MERON, plante și o atmosferă primitoare la PEBBLE, Mendeleev 10, București.",
 };
 export const revalidate = 60;
 export default async function Page() {

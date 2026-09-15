@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { CafeContent, Locale } from "@/lib/content";
+import SnailSculpture from "@/components/snail-sculpture";
 import Brand from "@/components/brand";
 import { MotionLink } from "@/components/motion-action";
 
@@ -35,7 +36,7 @@ const labels = {
     frontAlt:
       "PEBBLE’s glass entrance, with the original snail logo and warm interior",
     description:
-      "PEBBLE specialty coffee in central Bucharest. MERON coffee, plants and a slower pace at Mendeleev 10.",
+      "PEBBLE specialty coffee in central Bucharest. MERON coffee, plants and a welcoming atmosphere at Mendeleev 10.",
   },
   ro: {
     nav: ["Locul nostru", "Cafeaua", "Găsește-ne"],
@@ -63,7 +64,7 @@ const labels = {
     frontAlt:
       "Intrarea din sticlă PEBBLE, cu marca originală a melcului și interiorul cald",
     description:
-      "PEBBLE, cafea de specialitate în centrul Bucureștiului. Cafea MERON, plante și un ritm mai lent pe Mendeleev 10.",
+      "PEBBLE, cafea de specialitate în centrul Bucureștiului. Cafea MERON, plante și o atmosferă primitoare pe Mendeleev 10.",
   },
 };
 
@@ -197,21 +198,6 @@ export default function CafeSite({
             },
           },
         );
-        gsap.fromTo(
-          ".cafe-snail",
-          { rotation: -10, y: 14 },
-          {
-            rotation: 8,
-            y: -14,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".cafe-story",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          },
-        );
       }, root);
       return () => context.revert();
     });
@@ -279,7 +265,7 @@ export default function CafeSite({
             <div className="cafe-main-photo cafe-zigzag" data-direction="1">
               <Image
                 className="cafe-parallax"
-                src="/images/interior-empty.webp"
+                src="/images/interior-empty-editorial.webp"
                 alt={t.alt}
                 fill
                 preload
@@ -293,9 +279,6 @@ export default function CafeSite({
             </h1>
             <div className="cafe-hero-aside">
               <p>{c.heroText[lang]}</p>
-              <MotionLink href={c.maps} external>
-                {t.nav[2]}
-              </MotionLink>
             </div>
             <a className="cafe-scroll eyebrow" href="#our-place">
               {t.scroll}
@@ -317,21 +300,23 @@ export default function CafeSite({
             </h2>
             <div className="cafe-story-copy">
               <p>{c.storyText[lang]}</p>
-              <div className="cafe-snail">
-                <Image
-                  src="/images/snail.svg"
-                  alt=""
-                  width={250}
-                  height={312}
-                />
-              </div>
-              <p className="cafe-snail-caption">{t.slow}</p>
+              <a
+                className="cafe-guide-link"
+                href="https://europeancoffeetrip.com/cafe/pebble-bucharest/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {lang === "en"
+                  ? "Find us on European Coffee Trip"
+                  : "Ne găsești pe European Coffee Trip"}
+                <i className="ri-arrow-right-up-line" aria-hidden="true" />
+              </a>
             </div>
           </div>
           <div className="cafe-wall-composition">
             <figure className="cafe-wall-photo cafe-zigzag" data-direction="-1">
               <Image
-                src="/images/snail-wall.webp"
+                src="/images/snail-wall-editorial.webp"
                 alt={
                   lang === "en"
                     ? "White ceramic snails on a lush moss wall, inspired by PEBBLE’s wall installation"
@@ -342,21 +327,67 @@ export default function CafeSite({
                 sizes="(max-width:700px) 90vw, 58vw"
               />
             </figure>
-            <p className="cafe-wall-note cafe-text-orbit">
-              {lang === "en" ? (
-                <>
-                  A little
-                  <br />
-                  slower.
-                </>
-              ) : (
-                <>
-                  Un pic
-                  <br />
-                  mai încet.
-                </>
-              )}
-            </p>
+            <figure
+              className="cafe-corner-photo cafe-zigzag"
+              data-direction="1"
+            >
+              <div className="cafe-image-crop">
+                <Image
+                  className="cafe-parallax"
+                  src="/images/meron-corner-reference-editorial.webp"
+                  alt={
+                    lang === "en"
+                      ? "MERON coffee sign on the PEBBLE counter with the moss wall and window beyond"
+                      : "Semnul MERON pe barul PEBBLE, cu peretele de mușchi și fereastra în fundal"
+                  }
+                  width={857}
+                  height={729}
+                  sizes="(max-width:700px) 75vw, 36vw"
+                />
+              </div>
+            </figure>
+            <div className="cafe-wall-right">
+              <p className="cafe-wall-note cafe-text-orbit">
+                {lang === "en" ? (
+                  <>
+                    A little
+                    <br />
+                    slower.
+                  </>
+                ) : (
+                  <>
+                    Un pic
+                    <br />
+                    mai încet.
+                  </>
+                )}
+              </p>
+              <SnailSculpture />
+            </div>
+            <figure
+              className="cafe-cascade-photo cafe-zigzag"
+              data-direction="1"
+            >
+              <div className="cafe-image-crop">
+                <Image
+                  className="cafe-parallax"
+                  src="/images/interior-empty-editorial.webp"
+                  alt={
+                    lang === "en"
+                      ? "Sunlit seating and leafy plants inside PEBBLE"
+                      : "Locuri la fereastră și plante în interiorul PEBBLE"
+                  }
+                  width={1478}
+                  height={1064}
+                  sizes="(max-width:700px) 90vw, 56vw"
+                />
+              </div>
+              <figcaption className="eyebrow">
+                {lang === "en"
+                  ? "A little light. A lovely place to be."
+                  : "Puțină lumină. Un loc în care te simți bine."}
+              </figcaption>
+            </figure>
           </div>
         </section>
         <section id="coffee" className="cafe-coffee page-pad section-space">
@@ -374,24 +405,45 @@ export default function CafeSite({
             </div>
             <div className="cafe-coffee-photo cafe-zigzag" data-direction="1">
               <Image
-                src="/images/flat-white-seahorse-natural.webp"
+                src="/images/seahorse-real-editorial.webp"
                 className="cafe-parallax"
                 alt={
                   lang === "en"
-                    ? "A white ceramic flat white with intricate seahorse latte art on PEBBLE’s ivory counter"
-                    : "Flat white într-o ceașcă albă, cu un căluț de mare desenat în spuma de lapte"
+                    ? "A dark PEBBLE ceramic cup with seahorse latte art on the café’s ivory counter"
+                    : "Flat white într-o ceașcă închisă PEBBLE, cu un căluț de mare desenat în spuma de lapte"
                 }
                 fill
                 sizes="(max-width:700px) 100vw, 45vw"
               />
             </div>
           </div>
+          <figure className="cafe-bunny-photo cafe-zigzag" data-direction="-1">
+            <div className="cafe-image-crop">
+              <Image
+                className="cafe-parallax"
+                src="/images/bunny-tray-editorial.webp"
+                alt={
+                  lang === "en"
+                    ? "Bunny latte art in a rounded PEBBLE ceramic cup, with a water cup on a dark tray"
+                    : "Latte art cu iepuraș într-o ceașcă PEBBLE, alături de apă pe o tavă închisă"
+                }
+                width={1479}
+                height={1063}
+                sizes="(max-width:700px) 90vw, 52vw"
+              />
+            </div>
+            <figcaption className="eyebrow">
+              {lang === "en"
+                ? "A little joy in every cup."
+                : "Puțină bucurie în fiecare ceașcă."}
+            </figcaption>
+          </figure>
           <figure
             className="cafe-machine-photo cafe-zigzag"
             data-direction="-1"
           >
             <Image
-              src="/images/marzocco-bar.webp"
+              src="/images/marzocco-bar-editorial.webp"
               alt={
                 lang === "en"
                   ? "La Marzocco espresso machine, black grinders and PEBBLE’s ivory bar in morning light"
@@ -420,6 +472,27 @@ export default function CafeSite({
                 </>
               )}
             </span>
+          </figure>
+          <figure className="cafe-bar-detail cafe-zigzag" data-direction="1">
+            <div className="cafe-image-crop">
+              <Image
+                className="cafe-parallax"
+                src="/images/reverse-bar-editorial.webp"
+                alt={
+                  lang === "en"
+                    ? "PEBBLE’s white brick bar, illuminated MERON coffee shelves and pastry display"
+                    : "Barul PEBBLE cu cărămidă albă, rafturi cu cafea MERON și vitrină cu gustări"
+                }
+                width={1536}
+                height={1024}
+                sizes="(max-width:700px) 90vw, 55vw"
+              />
+            </div>
+            <figcaption className="eyebrow">
+              {lang === "en"
+                ? "From the roastery. To our bar. To your cup."
+                : "De la prăjitorie. La barul nostru. În ceașca ta."}
+            </figcaption>
           </figure>
           <div className="cafe-coffee-bottom">
             <span>MERON</span>
@@ -453,15 +526,108 @@ export default function CafeSite({
             </dl>
           </section>
         )}
+        <section
+          id="at-the-counter"
+          className="cafe-retail page-pad section-space"
+        >
+          <div className="section-label eyebrow">
+            <span>03 / {lang === "en" ? "At the counter" : "La bar"}</span>
+            <span>
+              {lang === "en"
+                ? "PEBBLE / TAKE A LITTLE HOME"
+                : "PEBBLE / IA PUȚIN ACASĂ"}
+            </span>
+          </div>
+          <div className="seven-grid">
+            <div className="cafe-retail-copy">
+              <h2 className="cafe-section-title">
+                {lang === "en"
+                  ? "For here.\nFor later."
+                  : "Pentru aici.\nPentru acasă."}
+              </h2>
+              <p>{c.retailText[lang]}</p>
+              <ul className="retail-list">
+                <li>Zăganu / Grivița</li>
+                <li>{lang === "en" ? "PEBBLE mugs" : "Căni PEBBLE"}</li>
+                <li>{lang === "en" ? "Snacks to go" : "Gustări la pachet"}</li>
+              </ul>
+            </div>
+            <figure
+              className="cafe-retail-photo cafe-zigzag"
+              data-direction="-1"
+            >
+              <div className="cafe-image-crop">
+                <Image
+                  className="cafe-parallax"
+                  src="/images/fridge-merch-editorial.webp"
+                  alt={
+                    lang === "en"
+                      ? "Local beers in the fridge, snacks and dark ceramic PEBBLE cups on the adjacent shelf"
+                      : "Bere locală la frigider, gustări și căni PEBBLE pe raftul alăturat"
+                  }
+                  width={1024}
+                  height={1280}
+                  sizes="(max-width:700px) 85vw, 55vw"
+                />
+              </div>
+            </figure>
+          </div>
+        </section>
+        <section
+          className="cafe-reviews page-pad section-space"
+          aria-labelledby="reviews-title"
+        >
+          <div className="section-label eyebrow">
+            <span>
+              04 / {lang === "en" ? "A little love" : "Cu drag, de la voi"}
+            </span>
+            <span>GOOGLE REVIEWS</span>
+          </div>
+          <div className="seven-grid">
+            <div className="cafe-rating">
+              <span className="rating-number">5.0</span>
+              <span
+                className="rating-stars"
+                aria-label={
+                  lang === "en" ? "5 out of 5 stars" : "5 din 5 stele"
+                }
+              >
+                ★★★★★
+              </span>
+              <p>
+                {lang === "en"
+                  ? "Average rating on Google"
+                  : "Nota medie pe Google"}
+              </p>
+            </div>
+            <div className="cafe-review-copy">
+              <h2 id="reviews-title" className="cafe-section-title">
+                {lang === "en"
+                  ? "Small café.\nSo much love."
+                  : "Un loc mic.\nAtât de iubit."}
+              </h2>
+              <p>
+                {lang === "en"
+                  ? "Every visit, every kind word, every familiar face. Thank you for making our little corner of Bucharest feel so special."
+                  : "Fiecare vizită, fiecare vorbă bună, fiecare chip cunoscut. Vă mulțumim că faceți micul nostru colț din București atât de special."}
+              </p>
+              <MotionLink href={c.maps} className="outline" external>
+                {lang === "en"
+                  ? "Read our Google reviews"
+                  : "Citește recenziile Google"}
+              </MotionLink>
+            </div>
+          </div>
+        </section>
         <section id="visit" className="cafe-visit page-pad section-space">
           <div className="section-label eyebrow">
-            <span>03 / {t.nav[2]}</span>
+            <span>05 / {t.nav[2]}</span>
             <span>Mendeleev 10</span>
           </div>
           <div className="cafe-visit-grid">
             <div className="cafe-front-photo cafe-zigzag" data-direction="1">
               <Image
-                src="/images/front-enhanced.webp"
+                src="/images/front-enhanced-editorial.webp"
                 alt={t.frontAlt}
                 width={555}
                 height={725}
@@ -497,6 +663,45 @@ export default function CafeSite({
               </div>
             </div>
           </div>
+          <div className="cafe-visit-details">
+            <div className="cafe-services">
+              <h3 className="eyebrow">
+                {lang === "en" ? "Make yourself at home" : "Simte-te ca acasă"}
+              </h3>
+              <ul>
+                {(lang === "en"
+                  ? [
+                      "Espresso · Cold brew / drip",
+                      "Breakfast · Plant-based milk",
+                      "Free Wi-Fi · Laptop friendly",
+                      "Vegan options · Dog friendly",
+                      "Outdoor seating · Card payments",
+                    ]
+                  : [
+                      "Espresso · Cold brew / drip",
+                      "Mic dejun · Lapte vegetal",
+                      "Wi-Fi gratuit · Laptopuri binevenite",
+                      "Opțiuni vegane · Căței bineveniți",
+                      "Terasă · Plată cu cardul",
+                    ]
+                ).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <iframe
+              className="cafe-map"
+              title={
+                lang === "en"
+                  ? "PEBBLE on Google Maps — Mendeleev 10, Bucharest"
+                  : "PEBBLE pe Google Maps — Mendeleev 10, București"
+              }
+              src="https://maps.google.com/maps?q=Pebble%20Bucharest%20Mendeleev%2010&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
         </section>
       </main>
       <footer className="footer page-pad cafe-footer">
@@ -509,7 +714,7 @@ export default function CafeSite({
             </a>
             <a href={c.facebook} target="_blank" rel="noreferrer">
               Facebook
-              <i className="ri-arrow-right-up-line" aria-hidden="true" />
+              <i className="ri-facebook-circle-fill" aria-hidden="true" />
             </a>
           </div>
         </div>

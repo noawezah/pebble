@@ -45,3 +45,11 @@ Original-snail + PEBBLE brand lockup; English/Romanian language links; underline
 ## Content principles
 
 English first, Romanian second. Personal, calm, specific. MERON is identified as the coffee served. Do not invent awards, rankings, reviews or the claim that it is objectively the best coffee in Bucharest. Convey quality through the work, imagery and confident simplicity. No menu/prices until provided or published through Sanity.
+
+## September 15 refinements
+
+- Open text overlaps without background panels. Three interior photographs cascade through a seven-column composition.
+- Alternating diagonal GSAP scroll trajectories, inner image parallax, rotating display captions, magnetic buttons, diagonal hover fills and rolling text. Reduced-motion visitors receive static compositions.
+- The matte grey snail is real WebGL geometry extruded from the original traced brand contours, with rounded edges and nonmetallic lighting. It responds to scroll and pointer position, loads near the viewport, stops rendering offscreen and has the original SVG as fallback.
+- Google rating is a manually maintained 5.0 snapshot supplied by the owner and corroborated by café listings on September 15, 2026. No fabricated individual testimonials or live-review-count claim.
+- Map is a grayscale Google embed resolving the PEBBLE place at Mendeleev 10. EN remains primary, RO secondary.

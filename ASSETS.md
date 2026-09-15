@@ -64,3 +64,13 @@ Primary request: carefully enhance only photographic clarity, exposure, and natu
 Invariants: preserve full original portrait framing and aspect ratio, original camera viewpoint, exact facade, metallic double door and window frames, every mullion and crossbar, glass surfaces, door handles, threshold, all reflections, visible interior layout, furnishings, plants, people and their positions. Preserve the exact existing white snail mark and PEBBLE signage on the glass, preserving placement, size, letterforms, spelling and all original line breaks. Preserve existing subordinate signage including SPECIALTY COFFEE, by MERON, Lemonade, Matcha, Tea, COFFEE, Iced coffee, Cocktails, Beer, and Snacks & More exactly as in the input. Preserve every other existing visible sticker and mark. Do not alter, replace, restyle, move, or add any architecture, text, logo, object or person.
 Allowed changes only: balanced natural exposure, gentle clarity recovery, nuanced warmer late-afternoon golden sunlight consistent with the original light, realistic glass reflections, readable interior detail without flattening contrast, and a restrained high-quality editorial photographic grade. The image should look like a careful professional photographic edit of the original, not a redesigned storefront.
 Output: exactly one enhanced portrait photograph at high resolution with the complete original composition. No additional text, no watermark, no invented facade features. Avoid exaggerated orange grading, HDR halos, artificial sun rays, overly sharpened edges, and reconstructed or changed signage.
+
+## Additional reference-based assets — September 15, 2026
+
+`reverse-bar.webp` derives from `reverse-bar.png`, imagegen output exec-8e776cfe-88f7-4ea3-ac8a-649dc7feb5d2.png. It retains the supplied white brick rear bar, illuminated shelves, MERON bags, counter, machine and plant. The partial person was removed and lighting refined.
+
+`fridge-merch.webp` derives from `fridge-merch.png`, imagegen output exec-4f4f1ad8-9b8d-4d94-a644-b92a8d944968.png. It retains the supplied fridge and reddish shelf with two PEBBLE snail mugs added as a styling concept. Small product labels and price tags are generated and are not factual menu or pricing data.
+
+The original `meron-corner-reference.png` is used in the interior cascade. The 3D snail is code-created geometry derived from `snail.svg`, not a generated image or third-party model.
+
+Content references: https://www.meron.coffee/roastery/ (roasting in Transylvania and origin character); https://europeancoffeetrip.com/cafe/pebble-bucharest/ (listing and amenities). Opening hours use the owner's supplied times, which take precedence over the directory. The COFFeEAST directory banner is not presented as PEBBLE sponsorship.
