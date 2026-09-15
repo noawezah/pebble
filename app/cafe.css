@@ -894,4 +894,12 @@
     margin: 55px 0 0;
   }
 }
-.snail-sculpture { scroll-margin-top: calc(50vh - 180px); }
+.snail-sculpture {
+  scroll-margin-top: calc(50vh - 180px);
+}
+@media (max-width: 700px) {
+  .cafe-title span + span {
+    color: var(--charcoal);
+    text-shadow: none;
+  }
+}

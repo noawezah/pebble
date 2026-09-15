@@ -53,3 +53,7 @@ English first, Romanian second. Personal, calm, specific. MERON is identified as
 - The matte grey snail is real WebGL geometry extruded from the original traced brand contours, with rounded edges and nonmetallic lighting. It responds to scroll and pointer position, loads near the viewport, stops rendering offscreen and has the original SVG as fallback.
 - Google rating is a manually maintained 5.0 snapshot supplied by the owner and corroborated by café listings on September 15, 2026. No fabricated individual testimonials or live-review-count claim.
 - Map is a grayscale Google embed resolving the PEBBLE place at Mendeleev 10. EN remains primary, RO secondary.
+
+## Final sculpture motion
+
+The body, shell and pebble now use separate smooth Bézier contours (`public/images/snail-sculpture.svg`). High-resolution rounded bevels and shared vertex normals eliminate the stepped edges. Each piece moves at most 20 scene units laterally, 18 vertically and 12 in depth. Separation is zero when the sculpture centre aligns with the viewport centre, then increases gently in either scroll direction. Reduced-motion renders the assembled mark. Browser verification confirmed joined state at 359px versus a 360px viewport midpoint, followed by separated state after scrolling.

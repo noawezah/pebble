@@ -57,7 +57,8 @@ export default function SnailSculpture() {
           geometry.scale(1, -1, 1);
           geometries.push(geometry);
           const part = new THREE.Mesh(geometry, material);
-          part.name = (path.userData?.node as Element | undefined)?.id || "part";
+          part.name =
+            (path.userData?.node as Element | undefined)?.id || "part";
           sculpture.add(part);
         }
       scene.add(sculpture);
@@ -204,4 +205,3 @@ export default function SnailSculpture() {
     </div>
   );
 }
-

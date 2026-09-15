@@ -74,3 +74,9 @@ Output: exactly one enhanced portrait photograph at high resolution with the com
 The original `meron-corner-reference.png` is used in the interior cascade. The 3D snail is code-created geometry derived from `snail.svg`, not a generated image or third-party model.
 
 Content references: https://www.meron.coffee/roastery/ (roasting in Transylvania and origin character); https://europeancoffeetrip.com/cafe/pebble-bucharest/ (listing and amenities). Opening hours use the owner's supplied times, which take precedence over the directory. The COFFeEAST directory banner is not presented as PEBBLE sponsorship.
+
+## Final editorial photo suite
+
+Twelve selected PNG masters and matching WebP assets use the `-editorial` suffix in `public/images`. Original files remain available. `photo-enhancement-manifest.json` records final output sources and exact image-generation prompts.
+
+Final seahorse: the owner's supplied seahorse pattern is composited into the actual rounded dark PEBBLE ceramic cup against the existing PEBBLE counter/interior background. The other café's reference background is not used. Bunny: supplied bunny pattern in the PEBBLE cup alongside water on the dark tray; carousel UI removed. Retail: fridge restocked conceptually with existing drink types, squat dark PEBBLE cups replace tall mugs, and generated price tags removed. These are styled photo composites, not documentary evidence of stock or latte designs actually served.
