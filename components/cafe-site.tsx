@@ -83,124 +83,138 @@ export default function CafeSite({
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      const context = gsap.context(() => {
-        const mobile = window.matchMedia("(max-width: 700px)").matches;
-        const drift = mobile ? 12 : Math.min(76, window.innerWidth * 0.045);
-        // A vertical journey with alternating diagonal camera positions.
-        gsap.utils.toArray<HTMLElement>(".cafe-zigzag").forEach((el) => {
-          const direction = Number(el.dataset.direction) || 1;
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: el,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1.1,
-                invalidateOnRefresh: true,
-              },
-            })
-            .fromTo(
-              el,
-              {
-                x: -direction * drift,
-                y: mobile ? 22 : 60,
-                rotation: -direction * (mobile ? 1 : 3.5),
-              },
-              {
-                x: direction * drift * 0.25,
-                y: 0,
-                rotation: direction * 0.5,
-                duration: 0.55,
-                ease: "none",
-              },
-            )
-            .to(el, {
-              x: direction * drift,
-              y: mobile ? -18 : -45,
-              rotation: direction * (mobile ? 1 : 2.5),
-              duration: 0.45,
-              ease: "none",
-            });
-        });
-        gsap.utils.toArray<HTMLElement>(".cafe-parallax").forEach((el) => {
-          gsap.fromTo(
-            el,
-            { yPercent: -5, xPercent: -2, scale: 1.17 },
-            {
-              yPercent: 5,
-              xPercent: 2,
-              ease: "none",
-              scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            },
-          );
-        });
-        gsap.utils
-          .toArray<HTMLElement>(".cafe-section-title")
-          .forEach((el, i) => {
-            gsap.fromTo(
-              el,
-              { x: i % 2 ? 18 : -18, y: 30, rotation: i % 2 ? 3 : -3 },
-              {
-                x: 0,
-                y: 0,
-                rotation: 0,
-                ease: "power2.out",
+    media.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        mobile: "(max-width: 700px)",
+        desktop: "(min-width: 701px)",
+      },
+      (match) => {
+        if (!match.conditions?.motion) return;
+        const context = gsap.context(() => {
+          const mobile = !!match.conditions?.mobile;
+          const drift = mobile
+            ? 10
+            : Math.min(48, (root.current?.clientWidth || 1200) * 0.03);
+          // A vertical journey with alternating diagonal camera positions.
+          gsap.utils.toArray<HTMLElement>(".cafe-zigzag").forEach((el) => {
+            if (!mobile && el.classList.contains("cafe-main-photo")) return;
+            const direction = Number(el.dataset.direction) || 1;
+            gsap
+              .timeline({
                 scrollTrigger: {
                   trigger: el,
-                  start: "top 96%",
-                  end: "top 40%",
-                  scrub: 0.7,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 1.1,
+                  invalidateOnRefresh: true,
+                },
+              })
+              .fromTo(
+                el,
+                {
+                  x: -direction * drift,
+                  y: mobile ? 22 : 60,
+                  rotation: -direction * (mobile ? 1 : 3.5),
+                },
+                {
+                  x: direction * drift * 0.25,
+                  y: 0,
+                  rotation: direction * 0.5,
+                  duration: 0.55,
+                  ease: "none",
+                },
+              )
+              .to(el, {
+                x: direction * drift,
+                y: mobile ? -18 : -45,
+                rotation: direction * (mobile ? 1 : 2.5),
+                duration: 0.45,
+                ease: "none",
+              });
+          });
+          gsap.utils.toArray<HTMLElement>(".cafe-parallax").forEach((el) => {
+            const hero = !mobile && el.parentElement?.classList.contains("cafe-main-photo");
+            gsap.fromTo(
+              el,
+              { yPercent: hero ? -3 : -5, xPercent: hero ? 0 : -2, scale: hero ? 1.08 : 1.17 },
+              {
+                yPercent: hero ? 3 : 5,
+                xPercent: hero ? 0 : 2,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: el.parentElement,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.8,
                 },
               },
             );
           });
-        gsap.utils.toArray<HTMLElement>(".cafe-text-orbit").forEach((el, i) => {
-          const direction = i % 2 ? 1 : -1;
+          gsap.utils
+            .toArray<HTMLElement>(".cafe-section-title")
+            .forEach((el, i) => {
+              gsap.fromTo(
+                el,
+                { x: i % 2 ? 18 : -18, y: 30, rotation: i % 2 ? 3 : -3 },
+                {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: el,
+                    start: "top 96%",
+                    end: "top 40%",
+                    scrub: 0.7,
+                  },
+                },
+              );
+            });
+          gsap.utils
+            .toArray<HTMLElement>(".cafe-text-orbit")
+            .forEach((el, i) => {
+              const direction = i % 2 ? 1 : -1;
+              gsap.fromTo(
+                el,
+                {
+                  x: direction * (mobile ? 8 : 35),
+                  y: 25,
+                  rotation: -direction * 6,
+                },
+                {
+                  x: -direction * (mobile ? 8 : 35),
+                  y: -25,
+                  rotation: direction * 5,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: el.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                  },
+                },
+              );
+            });
           gsap.fromTo(
-            el,
+            ".cafe-title span:last-child",
+            { x: mobile ? 0 : -18, rotation: -2 },
             {
-              x: direction * (mobile ? 8 : 35),
-              y: 25,
-              rotation: -direction * 6,
-            },
-            {
-              x: -direction * (mobile ? 8 : 35),
-              y: -25,
-              rotation: direction * 5,
+              x: mobile ? 0 : 18,
+              rotation: 2,
               ease: "none",
               scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
+                trigger: ".cafe-hero-composition",
+                start: "top 80%",
                 end: "bottom top",
                 scrub: 1,
               },
             },
           );
-        });
-        gsap.fromTo(
-          ".cafe-title span:last-child",
-          { x: mobile ? 0 : -18, rotation: -2 },
-          {
-            x: mobile ? 0 : 18,
-            rotation: 2,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".cafe-hero-composition",
-              start: "top 80%",
-              end: "bottom top",
-              scrub: 1,
-            },
-          },
-        );
-      }, root);
-      return () => context.revert();
-    });
+        }, root);
+        return () => context.revert();
+      },
+    );
     return () => media.revert();
   }, [lang]);
 
@@ -665,29 +679,11 @@ export default function CafeSite({
           </div>
           <div className="cafe-visit-details">
             <div className="cafe-services">
-              <h3 className="eyebrow">
-                {lang === "en" ? "Make yourself at home" : "Simte-te ca acasă"}
-              </h3>
-              <ul>
-                {(lang === "en"
-                  ? [
-                      "Espresso · Cold brew / drip",
-                      "Breakfast · Plant-based milk",
-                      "Free Wi-Fi · Laptop friendly",
-                      "Vegan options · Dog friendly",
-                      "Outdoor seating · Card payments",
-                    ]
-                  : [
-                      "Espresso · Cold brew / drip",
-                      "Mic dejun · Lapte vegetal",
-                      "Wi-Fi gratuit · Laptopuri binevenite",
-                      "Opțiuni vegane · Căței bineveniți",
-                      "Terasă · Plată cu cardul",
-                    ]
-                ).map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <p>
+                {lang === "en"
+                  ? "Dog friendly · Plant-based options · A few seats outside"
+                  : "Căței bineveniți · Opțiuni vegetale · Câteva locuri pe terasă"}
+              </p>
             </div>
             <iframe
               className="cafe-map"

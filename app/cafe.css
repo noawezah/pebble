@@ -765,7 +765,7 @@
   width: 100%;
   height: 460px;
   border: 0;
-  filter: grayscale(1);
+  filter: none;
 }
 @media (max-width: 700px) {
   .cafe-wall-right {
@@ -901,5 +901,125 @@
   .cafe-title span + span {
     color: var(--charcoal);
     text-shadow: none;
+  }
+}
+/* Keep the editorial composition stable when resizing or zooming out. */
+.cafe {
+  max-width: 1920px;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+.cafe-title span:first-child,
+.cafe-title span + span,
+.cafe-visit-copy h2,
+.cafe-wall-note {
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+.cafe-services p {
+  max-width: 330px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.cafe-map {
+  display: block;
+  min-width: 0;
+  filter: none;
+}
+.cafe-image-crop {
+  width: 100%;
+}
+.cafe img {
+  max-width: 100%;
+}
+.cafe-coffee-photo {
+  aspect-ratio: 4/5;
+  min-height: 0;
+}
+.cafe-coffee-photo img {
+  object-fit: cover;
+}
+@media (min-width: 701px) {
+  .cafe-header {
+    height: 72px;
+  }
+  .cafe-big-name {
+    font-size: min(17cqw, 18svh);
+    line-height: 1;
+    margin: 10px 0 22px;
+  }
+  .cafe-hero-composition {
+    --hero-height: clamp(300px, calc(82svh - 178px), 650px);
+    height: var(--hero-height);
+    min-height: 0;
+  }
+  .cafe-main-photo {
+    left: 29%;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    height: 100%;
+    width: 71%;
+    max-width: none;
+  }
+  .cafe-main-photo img {
+    object-fit: cover;
+  }
+  .cafe-title {
+    padding-top: 22px;
+    font-size: clamp(48px, 7.6cqw, 132px);
+  }
+  .cafe-title span + span {
+    margin-left: 32%;
+    margin-top: 16px;
+    color: var(--paper);
+  }
+  .cafe-title span:first-child {
+    width: 100%;
+    background: linear-gradient(to right, var(--charcoal) 29%, var(--paper) 29%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .cafe-hero-aside {
+    grid-column: 1/-1;
+    max-width: 320px;
+    position: absolute;
+    left: 0;
+    bottom: 50px;
+    width: 26%;
+    padding: 0;
+  }
+  .cafe-hero-aside p {
+    max-width: 270px;
+    font-size: clamp(14px, 1.35cqw, 18px);
+    margin-bottom: 0;
+  }
+  .cafe-scroll {
+    bottom: 0;
+  }
+  .cafe-photo-side {
+    display: none;
+  }
+  .cafe-footer .footer-wordmark {
+    font-size: 18cqw;
+  }
+}
+@media (min-width: 1600px) {
+  .cafe-section-title {
+    font-size: 104px;
+  }
+}
+@media (max-width: 700px) {
+  .cafe-coffee-photo {
+    min-height: 0;
+    aspect-ratio: 1/1;
+  }
+  .cafe-services p {
+    max-width: none;
+  }
+  .cafe-visit-details {
+    margin-top: 35px;
+    gap: 20px;
   }
 }
