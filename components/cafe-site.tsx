@@ -178,17 +178,18 @@ export default function CafeSite({
             .toArray<HTMLElement>(".cafe-text-orbit")
             .forEach((el, i) => {
               const direction = i % 2 ? 1 : -1;
+              const diagonal = el.classList.contains("cafe-cascade-title");
               gsap.fromTo(
                 el,
                 {
                   x: direction * (mobile ? 8 : 35),
                   y: 25,
-                  rotation: -direction * 6,
+                  rotation: diagonal ? -31 : -direction * 6,
                 },
                 {
                   x: -direction * (mobile ? 8 : 35),
                   y: -25,
-                  rotation: direction * 5,
+                  rotation: diagonal ? -22 : direction * 5,
                   ease: "none",
                   scrollTrigger: {
                     trigger: el.parentElement,
@@ -385,10 +386,10 @@ export default function CafeSite({
 
             </div>
             <figure
-              className="cafe-cascade-photo cafe-zigzag"
+              className="cafe-cascade-photo"
               data-direction="1"
             >
-              <div className="cafe-image-crop">
+              <div className="cafe-image-crop cafe-zigzag" data-direction="1">
                 <Image
                   className="cafe-parallax"
                   src="/images/interior-empty-editorial.webp"
@@ -402,12 +403,13 @@ export default function CafeSite({
                   sizes="(max-width:700px) 90vw, 56vw"
                 />
               </div>
-              <figcaption className="eyebrow">
-                {lang === "en"
-                  ? "A little light. A lovely place to be."
-                  : "Puțină lumină. Un loc în care te simți bine."}
-              </figcaption>
             </figure>
+              <p className="cafe-cascade-title cafe-text-orbit">
+                {lang === "en"
+                  ? <>A little light.<br />A lovely place to be.</>
+                  : <>Puțină lumină.<br />Un loc în care te simți bine.</>}
+              </p>
+
           </div>
         </section>
         <section id="coffee" className="cafe-coffee page-pad section-space">

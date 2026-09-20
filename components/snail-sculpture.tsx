@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { sculptureSilhouettes } from "@/lib/sculpture-silhouette";
 
 export default function SnailSculpture() {
   const host = useRef<HTMLDivElement>(null);
@@ -36,9 +37,10 @@ export default function SnailSculpture() {
         metalness: 0,
       });
       const geometries: InstanceType<typeof THREE.BufferGeometry>[] = [];
+      const outlines: { part: InstanceType<typeof THREE.Mesh>; points: InstanceType<typeof THREE.Vector3>[] }[] = [];
       const paths = new SVGLoader().parse(svg).paths;
       for (const path of paths)
-        for (const shape of SVGLoader.createShapes(path)) {
+        for (const shape of path.toShapes()) {
           const raw = new THREE.ExtrudeGeometry(shape, {
             depth: 22,
             bevelEnabled: true,
@@ -60,6 +62,7 @@ export default function SnailSculpture() {
           part.name =
             (path.userData?.node as Element | undefined)?.id || "part";
           sculpture.add(part);
+          outlines.push({ part, points: shape.getPoints(24).map(p => new THREE.Vector3(p.x - 125, 156 - p.y, 14)) });
         }
       scene.add(sculpture);
       scene.add(new THREE.HemisphereLight(0xffffff, 0x555555, 2.2));
@@ -117,6 +120,10 @@ export default function SnailSculpture() {
         });
         element.dataset.assembly = separation < 0.02 ? "joined" : "separated";
         renderer.render(scene, camera);
+        sculptureSilhouettes.set(element, outlines.map(({part, points}) => points.map(point => {
+          const projected = point.clone().applyMatrix4(part.matrixWorld).project(camera);
+          return [(projected.x + 1) * bounds.width / 2, (1 - projected.y) * bounds.height / 2];
+        })));
         if (!reduced.matches) frame = requestAnimationFrame(draw);
       };
       const requestDraw = () => {
@@ -157,6 +164,7 @@ export default function SnailSculpture() {
       element.addEventListener("pointerleave", leave);
       reduced.addEventListener("change", requestDraw);
       cleanup = () => {
+        sculptureSilhouettes.delete(element);
         cancelAnimationFrame(frame);
         observer.disconnect();
         resize.disconnect();
