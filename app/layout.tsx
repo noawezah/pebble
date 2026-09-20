@@ -6,6 +6,7 @@ import "remixicon/fonts/remixicon.css";
 import "./globals.css";
 import "./cafe.css";
 import "./motion.css";
+import "./intro.css";
 export const metadata: Metadata = {
   ...(siteOrigin() ? { metadataBase: new URL(siteOrigin()!) } : {}),
   title: "PEBBLE — Specialty coffee, Bucharest",

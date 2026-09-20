@@ -1023,3 +1023,32 @@
     gap: 20px;
   }
 }
+
+/* Image-aware white lettering follows the actual parallax geometry. */
+.photo-contrast-text { position: relative; }
+.cafe-title > span:first-child,
+.cafe-title > span + span { color: var(--charcoal); background: none; background-clip: border-box; }
+.photo-contrast-copy {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; padding: 0; color: var(--paper); background: none;
+  font: inherit; letter-spacing: inherit; line-height: inherit;
+  text-align: inherit; white-space: inherit; pointer-events: none;
+  -webkit-text-stroke: 0; text-shadow: none; clip-path: inset(100%);
+}
+.cafe-wall-note { z-index: 3; }
+.cafe-meron-photo { margin-top: 28px; position: relative; z-index: 1; }
+.cafe-corner-photo .snail-sculpture { margin-top: 0; }
+.cafe-coffee-copy > p { max-width: 490px; margin: 0 auto; text-align: center; text-wrap: pretty; }
+@media (min-width: 701px) {
+  .cafe-coffee-copy { align-self: stretch; display: flex; flex-direction: column; }
+  .cafe-coffee-copy > p { margin: auto; padding: 24px 12px; }
+}
+@media (max-width: 700px) {
+  .cafe-bar-detail { margin-top: 24px; }
+  .cafe-machine-photo { margin-top: 28px; }
+  .cafe-bunny-photo { margin-top: 30px; }
+  .cafe-coffee-copy > p { margin: 0 auto 12px; max-width: 34ch; }
+  .cafe-meron-photo { margin-top: 18px; }
+  .cafe-corner-photo { margin-top: 0; }
+  .cafe-corner-photo .snail-sculpture { height: 260px; }
+}

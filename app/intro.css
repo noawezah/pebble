@@ -1,0 +1,6 @@
+.cafe-intro { position: fixed; inset: 0; z-index: 1000; isolation: isolate; color: var(--charcoal); }
+.cafe-intro[hidden] { display: none; }
+.intro-backdrop { position: absolute; inset: 0; background: var(--paper); }
+.intro-stage { position: absolute; inset: 0; pointer-events: none; }
+.intro-stage canvas { display: block; }
+@media (prefers-reduced-motion: reduce) { .cafe-intro { display: none; } }

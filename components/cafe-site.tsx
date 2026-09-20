@@ -6,6 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { CafeContent, Locale } from "@/lib/content";
 import SnailSculpture from "@/components/snail-sculpture";
+import LoadingIntro from "@/components/loading-intro";
+import { usePhotoContrast } from "@/components/use-photo-contrast";
 import Brand from "@/components/brand";
 import { MotionLink } from "@/components/motion-action";
 
@@ -77,6 +79,7 @@ export default function CafeSite({
 }) {
   const t = labels[lang];
   const root = useRef<HTMLDivElement>(null);
+  usePhotoContrast(root);
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
@@ -219,6 +222,8 @@ export default function CafeSite({
   }, [lang]);
 
   return (
+    <>
+    <LoadingIntro locale={lang} />
     <div className="cafe" ref={root} id="top">
       <a className="skip-link" href="#main">
         {t.skip}
@@ -341,8 +346,25 @@ export default function CafeSite({
                 sizes="(max-width:700px) 90vw, 58vw"
               />
             </figure>
+            <div className="cafe-corner-photo"><SnailSculpture /></div>
+            <div className="cafe-wall-right">
+              <p className="cafe-wall-note cafe-text-orbit">
+                {lang === "en" ? (
+                  <>
+                    A little
+                    <br />
+                    slower.
+                  </>
+                ) : (
+                  <>
+                    Un pic
+                    <br />
+                    mai încet.
+                  </>
+                )}
+              </p>
             <figure
-              className="cafe-corner-photo cafe-zigzag"
+              className="cafe-meron-photo cafe-zigzag"
               data-direction="1"
             >
               <div className="cafe-image-crop">
@@ -360,23 +382,7 @@ export default function CafeSite({
                 />
               </div>
             </figure>
-            <div className="cafe-wall-right">
-              <p className="cafe-wall-note cafe-text-orbit">
-                {lang === "en" ? (
-                  <>
-                    A little
-                    <br />
-                    slower.
-                  </>
-                ) : (
-                  <>
-                    Un pic
-                    <br />
-                    mai încet.
-                  </>
-                )}
-              </p>
-              <SnailSculpture />
+
             </div>
             <figure
               className="cafe-cascade-photo cafe-zigzag"
@@ -728,5 +734,6 @@ export default function CafeSite({
         </div>
       </footer>
     </div>
+    </>
   );
 }
