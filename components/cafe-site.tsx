@@ -689,8 +689,8 @@ export default function CafeSite({
             <div className="cafe-services">
               <p>
                 {lang === "en"
-                  ? "Dog friendly · Plant-based options · A few seats outside"
-                  : "Căței bineveniți · Opțiuni vegetale · Câteva locuri pe terasă"}
+                  ? "Dog friendly · Plant-based options"
+                  : "Căței bineveniți · Opțiuni vegetale"}
               </p>
             </div>
             <iframe
