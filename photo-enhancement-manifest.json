@@ -58,5 +58,18 @@
     "name": "bunny-tray",
     "source": "C:\\Users\\Maria\\.codex\\generated_images\\01a09cd5-15f5-7ee1-a00a-946d5b827e70\\exec-d0906b02-e088-4cc4-a625-976b1d9498c7.png",
     "prompt": "Precise small photographic cleanup only. Remove the tiny pale round right-chevron carousel icon that remains on the RIGHT EDGE of the coffee foam at the cup rim, naturally restore underlying coffee foam there. Everything else exactly unchanged, particularly actual bunny and leaves milk pattern, brown rounded PEBBLE ceramic cup, water glass, black tray and wood table. No added UI icons, arrows, text, graphics or dots. Same dimensions and framing."
+  },
+  {
+    "name": "snail-wall-corrected",
+    "source": "C:/Users/Maria/.codex/generated_images/01a09cd5-15f5-7ee1-a00a-946d5b827e70/exec-2504a14a-d333-430a-942a-7b59e8c0c4e8.png",
+    "reference": "C:/Users/Maria/AppData/Local/Temp/codex-clipboard-d825ad7d-8f49-49e8-a86c-31744c626cb9.png",
+    "description": "AI photo correction using the user-provided real wall reference: top and right moss bands, exposed brick below-left, simple white planters, wood beam and warm edge light. Replaces the inaccurate full moss rectangle in the website. Original assets retained."
+  },
+  {
+    "name": "snail-wall-reference-edit",
+    "source": "C:/Users/Maria/.codex/generated_images/01a09cd5-15f5-7ee1-a00a-946d5b827e70/exec-c269934c-fe25-4a78-bf22-4ce0187ea90c.png",
+    "editTarget": "public/images/snail-wall-editorial.png",
+    "reference": "public/images/snail-wall-authentic.png",
+    "description": "AI reconstruction preserving the original oblique landscape framing, corrected using the actual wall photograph: black projecting central brickwork against grey outer brick, warm concealed light along both vertical sides, irregular top/right moss and narrow trailing foliage. Supersedes the direct frontal photograph on the website; reference and prior variants retained."
   }
 ]

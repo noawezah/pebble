@@ -48,18 +48,18 @@ export function usePhotoContrast(root: RefObject<HTMLDivElement | null>) {
           path += `M${points.join("L")}Z`;
         });
         copy.style.clipPath = path ? `path('${path}')` : "inset(100%)";
-        // Remove only the actual snail silhouette from the white lettering,
-        // including when the snail itself is in front of a photograph.
+        // White lettering follows both the photos and the actual moving snail.
         const sculpture = text.closest("section")?.querySelector<HTMLElement>(".snail-sculpture");
         const outlines = sculpture && sculptureSilhouettes.get(sculpture);
-        if (path && sculpture && outlines && text.classList.contains("cafe-cascade-title")) {
+        if (sculpture && outlines) {
           const box = sculpture.getBoundingClientRect();
           const silhouette = outlines.map(points => `M${points.map(([x,y]) => {
             const dx = box.left + x - bounds.left - bounds.width / 2;
             const dy = box.top + y - bounds.top - bounds.height / 2;
             return `${(inverse.a * dx + inverse.c * dy + text.offsetWidth / 2).toFixed(1)} ${(inverse.b * dx + inverse.d * dy + text.offsetHeight / 2).toFixed(1)}`;
           }).join("L")}Z`).join("");
-          const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${text.offsetWidth}" height="${text.offsetHeight}"><rect width="100%" height="100%" fill="white"/><path d="${silhouette}" fill="black" stroke="black" stroke-width="2"/></svg>`;
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${text.offsetWidth}" height="${text.offsetHeight}"><path d="${path}" fill="white"/><path d="${silhouette}" fill="white" stroke="white" stroke-width="2"/></svg>`;
+          copy.style.clipPath = "none";
           copy.style.maskImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
           copy.style.maskMode = "luminance";
         } else copy.style.maskImage = "none";

@@ -336,11 +336,11 @@ export default function CafeSite({
           <div className="cafe-wall-composition">
             <figure className="cafe-wall-photo cafe-zigzag" data-direction="-1">
               <Image
-                src="/images/snail-wall-editorial.webp"
+                src="/images/snail-wall-reference-edit.webp"
                 alt={
                   lang === "en"
-                    ? "White ceramic snails on a lush moss wall, inspired by PEBBLE’s wall installation"
-                    : "Melci din ceramică albă pe un perete cu mușchi verde, inspirați de instalația PEBBLE"
+                    ? "Angled view of PEBBLE’s moss wall, black central brickwork, white ceramic snails and warm side lighting"
+                    : "Peretele PEBBLE văzut din lateral, cu mușchi, cărămidă neagră în centru, melci albi din ceramică și iluminare laterală caldă"
                 }
                 width={1536}
                 height={1024}

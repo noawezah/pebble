@@ -80,3 +80,8 @@ Content references: https://www.meron.coffee/roastery/ (roasting in Transylvania
 Twelve selected PNG masters and matching WebP assets use the `-editorial` suffix in `public/images`. Original files remain available. `photo-enhancement-manifest.json` records final output sources and exact image-generation prompts.
 
 Final seahorse: the owner's supplied seahorse pattern is composited into the actual rounded dark PEBBLE ceramic cup against the existing PEBBLE counter/interior background. The other café's reference background is not used. Bunny: supplied bunny pattern in the PEBBLE cup alongside water on the dark tray; carousel UI removed. Retail: fridge restocked conceptually with existing drink types, squat dark PEBBLE cups replace tall mugs, and generated price tags removed. These are styled photo composites, not documentary evidence of stock or latte designs actually served.
+
+- `snail-wall-corrected.png` / `.webp`: revised wall photo based on the user�s real-wall reference (24 September 2026). AI reconstruction of the top/right moss arrangement, exposed brick and plain white planters; replaces `snail-wall-editorial.webp` on the page. Original retained.
+`snail-wall-authentic.png` / `.webp`: user-supplied photograph, used directly without AI alteration. Lossless WebP conversion only. Replaces the rejected generated wall correction; natural 568 × 558 aspect ratio retained.
+
+- snail-wall-reference-edit.png / .webp: current wall image. AI edit preserving the original oblique landscape angle, using snail-wall-authentic.png as the real-wall reference for the black central brick panel, grey outer brick, greenery and warm lighting along both sides. Supersedes the frontal photograph on the page; all originals retained.
