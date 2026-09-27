@@ -75,6 +75,7 @@ export default function SnailSculpture() {
       element.appendChild(renderer.domElement);
       element.dataset.ready = "true";
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const mobile = window.matchMedia("(max-width: 700px)");
       let visible = false,
         frame = 0,
         pointerX = 0,
@@ -98,7 +99,9 @@ export default function SnailSculpture() {
         sculpture.rotation.x +=
           ((reduced.matches ? 0.04 : pointerY * 0.12) - sculpture.rotation.x) *
           0.065;
-        sculpture.rotation.z = reduced.matches ? -0.035 : progress * 0.09;
+        sculpture.rotation.z =
+          (mobile.matches ? Math.PI / 9 : 0) +
+          (reduced.matches ? -0.035 : progress * 0.09);
         sculpture.position.y = reduced.matches ? 0 : progress * 30;
         // Each logo part meets its exact home coordinates at viewport centre.
         const separation = reduced.matches
@@ -163,6 +166,7 @@ export default function SnailSculpture() {
       element.addEventListener("pointermove", move);
       element.addEventListener("pointerleave", leave);
       reduced.addEventListener("change", requestDraw);
+      mobile.addEventListener("change", requestDraw);
       cleanup = () => {
         sculptureSilhouettes.delete(element);
         cancelAnimationFrame(frame);
@@ -171,6 +175,7 @@ export default function SnailSculpture() {
         element.removeEventListener("pointermove", move);
         element.removeEventListener("pointerleave", leave);
         reduced.removeEventListener("change", requestDraw);
+        mobile.removeEventListener("change", requestDraw);
         geometries.forEach((g) => g.dispose());
         material.dispose();
         renderer.dispose();

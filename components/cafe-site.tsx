@@ -184,12 +184,12 @@ export default function CafeSite({
                 {
                   x: direction * (mobile ? 8 : 35),
                   y: 25,
-                  rotation: diagonal ? -31 : -direction * 6,
+                  rotation: diagonal ? (mobile ? -51 : -31) : -direction * 6,
                 },
                 {
                   x: -direction * (mobile ? 8 : 35),
                   y: -25,
-                  rotation: diagonal ? -22 : direction * 5,
+                  rotation: diagonal ? (mobile ? -42 : -22) : direction * 5,
                   ease: "none",
                   scrollTrigger: {
                     trigger: el.parentElement,
