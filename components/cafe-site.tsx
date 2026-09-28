@@ -84,6 +84,43 @@ export default function CafeSite({
     document.documentElement.lang = lang;
   }, [lang]);
   useEffect(() => {
+    const cafe = root.current;
+    const header = cafe?.querySelector<HTMLElement>(".cafe-header");
+    const darkSection = cafe?.querySelector<HTMLElement>(".cafe-coffee");
+    if (!cafe || !header || !darkSection) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const headerBounds = header.getBoundingClientRect();
+      const sectionBounds = darkSection.getBoundingClientRect();
+      cafe.style.setProperty("--cafe-header-height", `${headerBounds.height}px`);
+      const withinHeader = (position: number) =>
+        Math.max(0, Math.min(headerBounds.height, position - headerBounds.top));
+
+      header.style.setProperty(
+        "--header-dark-start",
+        `${withinHeader(sectionBounds.top)}px`,
+      );
+      header.style.setProperty(
+        "--header-dark-end",
+        `${withinHeader(sectionBounds.bottom)}px`,
+      );
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+  useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
     media.add(
@@ -309,8 +346,8 @@ export default function CafeSite({
             </span>
           </div>
         </section>
-        <section id="our-place" className="cafe-story page-pad section-space">
-          <div className="section-label eyebrow">
+        <section className="cafe-story page-pad section-space">
+          <div id="our-place" className="section-label eyebrow cafe-nav-target">
             <span>01 / {t.place}</span>
             <span>PEBBLE, BUCHAREST</span>
           </div>
@@ -412,8 +449,8 @@ export default function CafeSite({
 
           </div>
         </section>
-        <section id="coffee" className="cafe-coffee page-pad section-space">
-          <div className="section-label eyebrow">
+        <section className="cafe-coffee page-pad section-space">
+          <div id="coffee" className="section-label eyebrow cafe-nav-target">
             <span>02 / {t.nav[1]}</span>
             <span>PEBBLE × MERON</span>
           </div>
@@ -641,8 +678,8 @@ export default function CafeSite({
             </div>
           </div>
         </section>
-        <section id="visit" className="cafe-visit page-pad section-space">
-          <div className="section-label eyebrow">
+        <section className="cafe-visit page-pad section-space">
+          <div id="visit" className="section-label eyebrow cafe-nav-target">
             <span>05 / {t.nav[2]}</span>
             <span>Mendeleev 10</span>
           </div>

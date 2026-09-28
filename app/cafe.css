@@ -1,5 +1,11 @@
 .cafe {
   overflow-x: clip;
+  --cafe-header-height: 72px;
+}
+@media (max-width: 700px) {
+  .cafe {
+    --cafe-header-height: 133px;
+  }
 }
 .cafe .language a {
   display: grid;
@@ -17,6 +23,39 @@
 }
 .cafe-header {
   height: 88px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  isolation: isolate;
+  --header-dark-start: 0px;
+  --header-dark-end: 0px;
+  background: linear-gradient(
+    to bottom,
+    var(--charcoal) 0 var(--header-dark-start),
+    var(--paper) var(--header-dark-start) var(--header-dark-end),
+    var(--charcoal) var(--header-dark-end) 100%
+  );
+}
+.cafe-header .brand-lockup > span,
+.cafe-header nav,
+.cafe-header .language {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.cafe-header .brand-lockup img {
+  filter: brightness(0) invert(1);
+  mix-blend-mode: difference;
+}
+.cafe-nav-target {
+  scroll-margin-top: calc(var(--cafe-header-height) - 8px);
+}
+@media (max-width: 700px) {
+  .cafe-coffee {
+    padding-top: max(var(--space-section), calc(var(--cafe-header-height) + 24px));
+  }
+}
+.cafe .cafe-header .language a {
+  color: inherit;
 }
 .cafe-hero {
   padding-top: 26px;
