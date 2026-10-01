@@ -10,6 +10,7 @@ import LoadingIntro from "@/components/loading-intro";
 import { usePhotoContrast } from "@/components/use-photo-contrast";
 import Brand from "@/components/brand";
 import { MotionLink } from "@/components/motion-action";
+import { SpotlightRail } from "@/components/spotlight-vine-rail";
 
 const labels = {
   en: {
@@ -347,10 +348,7 @@ export default function CafeSite({
           </div>
         </section>
         <section className="cafe-story page-pad section-space">
-          <div id="our-place" className="section-label eyebrow cafe-nav-target">
-            <span>01 / {t.place}</span>
-            <span>PEBBLE, BUCHAREST</span>
-          </div>
+          <SpotlightRail id="our-place" variant={0} className="cafe-nav-target" />
           <div className="seven-grid">
             <h2 className="cafe-section-title cafe-reveal">
               {c.storyTitle[lang]}
@@ -450,10 +448,7 @@ export default function CafeSite({
           </div>
         </section>
         <section className="cafe-coffee page-pad section-space">
-          <div id="coffee" className="section-label eyebrow cafe-nav-target">
-            <span>02 / {t.nav[1]}</span>
-            <span>PEBBLE × MERON</span>
-          </div>
+          <SpotlightRail id="coffee" variant={1} tone="dark" className="cafe-nav-target" />
           <div className="seven-grid">
             <div className="cafe-coffee-copy">
               <span className="eyebrow">{t.coffeeLabel}</span>
@@ -560,10 +555,7 @@ export default function CafeSite({
         </section>
         {c.menu.length > 0 && (
           <section id="menu" className="cafe-menu page-pad section-space">
-            <div className="section-label eyebrow">
-              <span>{t.menuLabel}</span>
-              <span>PEBBLE / MERON</span>
-            </div>
+            <SpotlightRail variant={2} />
             <h2 className="cafe-section-title cafe-reveal">{t.menu}</h2>
             <dl>
               {c.menu.map((item) => (
@@ -589,14 +581,7 @@ export default function CafeSite({
           id="at-the-counter"
           className="cafe-retail page-pad section-space"
         >
-          <div className="section-label eyebrow">
-            <span>03 / {lang === "en" ? "At the counter" : "La bar"}</span>
-            <span>
-              {lang === "en"
-                ? "PEBBLE / TAKE A LITTLE HOME"
-                : "PEBBLE / IA PUȚIN ACASĂ"}
-            </span>
-          </div>
+          <SpotlightRail variant={3} />
           <div className="seven-grid">
             <div className="cafe-retail-copy">
               <h2 className="cafe-section-title">
@@ -636,12 +621,7 @@ export default function CafeSite({
           className="cafe-reviews page-pad section-space"
           aria-labelledby="reviews-title"
         >
-          <div className="section-label eyebrow">
-            <span>
-              04 / {lang === "en" ? "A little love" : "Cu drag, de la voi"}
-            </span>
-            <span>GOOGLE REVIEWS</span>
-          </div>
+          <SpotlightRail variant={4} />
           <div className="seven-grid">
             <div className="cafe-rating">
               <span className="rating-number">5.0</span>
@@ -679,10 +659,7 @@ export default function CafeSite({
           </div>
         </section>
         <section className="cafe-visit page-pad section-space">
-          <div id="visit" className="section-label eyebrow cafe-nav-target">
-            <span>05 / {t.nav[2]}</span>
-            <span>Mendeleev 10</span>
-          </div>
+          <SpotlightRail id="visit" variant={5} className="cafe-nav-target" />
           <div className="cafe-visit-grid">
             <div className="cafe-front-photo cafe-zigzag" data-direction="1">
               <Image
