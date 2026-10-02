@@ -697,16 +697,16 @@ export default function CafeSite({
                   </div>
                 </dl>
               </div>
+              <div className="cafe-services">
+                <p>
+                  {lang === "en"
+                    ? "Dog friendly · Plant-based options"
+                    : "Căței bineveniți · Opțiuni vegetale"}
+                </p>
+              </div>
             </div>
           </div>
           <div className="cafe-visit-details">
-            <div className="cafe-services">
-              <p>
-                {lang === "en"
-                  ? "Dog friendly · Plant-based options"
-                  : "Căței bineveniți · Opțiuni vegetale"}
-              </p>
-            </div>
             <iframe
               className="cafe-map"
               title={

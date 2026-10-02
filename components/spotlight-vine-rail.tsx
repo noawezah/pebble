@@ -221,7 +221,7 @@ function RailScene({ variant, tone, mobile }: { variant: number; tone: Tone; mob
           <path d="M0 2 V17 M0 10 L-9 5 M0 10 L9 4" fill="none" stroke="currentColor" strokeOpacity=".15" strokeWidth="1.2" />
         </g>
         <g id={hangerId}>
-          <path d="M0 0 V14" stroke={palette.track} strokeWidth="3" strokeLinecap="round" />
+          <path d="M0 -8 V14" stroke={palette.track} strokeWidth="3" strokeLinecap="round" />
           <circle cy="14" r="4.5" fill={palette.metal} stroke={palette.track} strokeWidth="1.5" />
         </g>
         <g id={fixtureId}>

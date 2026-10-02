@@ -803,14 +803,11 @@
     0 0 12px var(--paper);
 }
 .cafe-visit-details {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 70px;
+  width: 80cqw;
+  margin: 70px auto 0;
 }
 .cafe-services {
-  grid-column: 1/4;
-  align-self: center;
+  margin-top: 24px;
 }
 .cafe-services ul {
   list-style: none;
@@ -822,9 +819,8 @@
   border-bottom: 1px solid var(--stone);
 }
 .cafe-map {
-  grid-column: 4/8;
   width: 100%;
-  height: 460px;
+  height: 320px;
   border: 0;
   filter: none;
 }
@@ -871,12 +867,10 @@
     margin: -20px 0 0 8%;
   }
   .cafe-visit-details {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 35px 12px;
+    width: 100%;
   }
-  .cafe-services,
-  .cafe-map {
-    grid-column: 1/-1;
+  .cafe-services {
+    margin-top: 35px;
   }
   .cafe-map {
     height: 360px;
@@ -941,7 +935,7 @@
 }
 .cafe-bunny-photo {
   width: 57%;
-  margin: 90px 0 0 5%;
+  margin: 90px auto 0;
 }
 .cafe-bunny-photo figcaption {
   margin-top: 18px;
@@ -952,7 +946,7 @@
 @media (max-width: 700px) {
   .cafe-bunny-photo {
     width: 90%;
-    margin: 55px 0 0;
+    margin: 55px auto 0;
   }
 }
 .snail-sculpture {
@@ -1080,8 +1074,7 @@
     max-width: none;
   }
   .cafe-visit-details {
-    margin-top: 35px;
-    gap: 20px;
+    margin-top: 20px;
   }
 }
 
@@ -1164,8 +1157,41 @@
   margin-top: calc(-1 * clamp(115px, 12vw, 205px));
 }
 @media (max-width: 700px) {
-  .cafe-corner-photo { left: -18px; }
+  .cafe-corner-photo {
+    left: -18px;
+    margin-top: calc(-1 * clamp(64px, 20cqw, 105px));
+  }
   .cafe-corner-photo .snail-fallback { transform: rotate(-20deg); }
-  .cafe-cascade-photo { grid-column: 1/4; margin-top: 24px; }
+  .cafe-cascade-photo {
+    grid-column: 1/4;
+    margin-top: calc(-1 * clamp(48px, 14cqw, 80px));
+  }
   .cafe-cascade-title { grid-column: 2/5; grid-row: 4; margin-top: -95px; transform: rotate(-47deg); }
+}
+
+/* Keep the visit details beside the entrance photograph on desktop. */
+@media (min-width: 701px) {
+  .cafe-front-photo img { height: 100%; object-fit: cover; }
+  .cafe-visit-copy { padding-top: 12px; }
+  .cafe-visit-copy h2 { font-size: clamp(40px, 6cqw, 96px); }
+  .cafe-visit-copy > p { margin: 16px 0; line-height: 1.45; }
+  .cafe-visit-copy .visit-address h3,
+  .cafe-visit-copy .visit-hours h3 { margin-bottom: 10px; }
+  .cafe-visit-copy .visit-hours { margin-top: 20px; padding-top: 16px; }
+  .cafe-visit-copy .visit-hours dl > div { padding: 6px 0; }
+  .cafe-visit-copy .cafe-services { margin-top: 14px; }
+  .cafe-visit-details { margin-top: 32px; }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .cafe-visit-copy { padding-top: 0; }
+  .cafe-visit-copy h2 { font-size: clamp(36px, 5.4cqw, 54px); }
+  .cafe-visit-copy > p { margin: 12px 0; font-size: 15px; line-height: 1.4; }
+  .cafe-visit-copy .visit-address h3,
+  .cafe-visit-copy .visit-hours h3 { margin-bottom: 8px; }
+  .cafe-visit-copy .visit-address address { font-size: 18px; }
+  .cafe-visit-copy .visit-address .button { min-height: 44px; padding: 9px 16px; }
+  .cafe-visit-copy .visit-hours { margin-top: 14px; padding-top: 12px; }
+  .cafe-visit-copy .visit-hours dl > div { font-size: 14px; padding: 4px 0; }
+  .cafe-visit-copy .cafe-services { margin-top: 12px; }
+  .cafe-visit-copy .cafe-services p { font-size: 14px; line-height: 1.5; }
 }
