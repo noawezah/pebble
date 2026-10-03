@@ -723,6 +723,19 @@ export default function CafeSite({
         </section>
       </main>
       <footer className="footer page-pad cafe-footer">
+        <picture className="cafe-footer-moss">
+          <source
+            media="(max-width: 700px)"
+            srcSet="/images/footer-moss-mobile.webp"
+          />
+          <Image
+            src="/images/footer-moss.webp"
+            alt=""
+            fill
+            sizes="(max-width: 1920px) 100vw, 1920px"
+            loading="lazy"
+          />
+        </picture>
         <div className="cafe-footer-top">
           <p>{t.social}</p>
           <div>
